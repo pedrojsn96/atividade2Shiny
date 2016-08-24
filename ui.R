@@ -16,5 +16,25 @@ dashboardPage(
           uiOutput("seletorDisciplina")
     
   ),
-  dashboardBody()
+  dashboardBody(
+    fluidRow(
+      column(width=12,
+             valueBoxOutput("SatisfatorioBox", width = 4),
+             valueBoxOutput("InsatisfatorioBox",width = 4),
+             box(
+               title = "Variavéis",status = "primary",width = 4,solidHeader = TRUE ,collapsible = TRUE
+               
+             )),
+      column(width=12,
+             box(
+               title = "Representação Gráfica",status = "primary",width=8,solidHeader = TRUE ,collapsible = TRUE
+               
+             ),
+             box(
+               title = "Alunos",status = "primary",width = 4,solidHeader = TRUE ,collapsible = TRUE
+               
+             ))
+      
+    )
+  )
 )

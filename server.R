@@ -27,6 +27,35 @@ shinyServer(function(input, output) {
     selectInput("disciplina","Escolha a Disciplina:",as.character(unique(disciplinas$Nome.da.Disciplina)))
   })
   
+  ## InfoBoxes
+  ##Base de acordo com os parametros escolhidos
+  baseFiltrada <- reactive({
+    filter(dados,X.U.FEFF.Curso == input$curso, Período == input$periodo, Nome.da.Disciplina == input$disciplina)
+  }) 
+  #Cria um tabela agrupando DESEMPENHO_BINARIO em 0 e 1
+  variavelClasse <- reactive({
+    table(baseFiltrada()$DESEMPENHO_BINARIO)
+  })
+  #Retorna a % Satisfatoria
+  variavelSatisfatoria <- reactive({
+    round((variavelClasse()[1]/count(baseFiltrada()))*100,2)
+  })
+  #Retorna a % Insatisfatoria
+  variavelInsatisfatoria <- reactive({
+    round((variavelClasse()[2]/count(baseFiltrada()))*100,2)
+  })
+  output$SatisfatorioBox <- renderValueBox({
+      valueBox(
+        paste0(variavelSatisfatoria(),"%"),"Satisfatório", icon = icon("thumbs-o-up "),
+        color = "green", width = 4
+      )
+  })
+  output$InsatisfatorioBox <- renderValueBox({
+      valueBox(
+        paste0(variavelInsatisfatoria(),"%"),"Insatisfatório", icon = icon("thumbs-o-down "),
+        color = "red", width = 4
+      )
+  })
   
 
 })
