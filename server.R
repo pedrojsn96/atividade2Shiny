@@ -65,7 +65,7 @@ shinyServer(function(input, output) {
     colnames(df) <- c("Nome","Desempenho")
     DT::datatable(
       df,rownames = FALSE,options = list(paging = FALSE,searching = FALSE, 
-                                         info = FALSE, scrollY = TRUE),class = "compact"
+                                         info = FALSE, scrollY = '300px'),class = "compact"
     )
   })
 
