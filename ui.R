@@ -5,6 +5,7 @@ library(rsconnect)
 library(plotly)
 library(dplyr)
 library(DT)
+library(xlsx)
 
 dashboardPage(
   dashboardHeader(title = "Atv Complementar"),
@@ -23,7 +24,8 @@ dashboardPage(
              valueBoxOutput("SatisfatorioBox", width = 4),
              valueBoxOutput("InsatisfatorioBox",width = 4),
              box(
-               title = "Variavéis",status = "primary",width = 4,solidHeader = TRUE ,collapsible = TRUE
+               title = "Variavéis",status = "primary",width = 4,solidHeader = TRUE ,collapsible = TRUE,
+               dataTableOutput("tabelaVariaveis")
                
              )),
       column(width=12,

@@ -5,10 +5,12 @@ library(rsconnect)
 library(plotly)
 library(dplyr)
 library(DT)
+library(xlsx)
 
 #Observação:
 #Esta usando X.U.FEFF.Curso, pois fiz uma leitura com enconding = "UTF-8"
 # dados<- read.csv2(file = "data/baseGeral.csv", enconding = "UTF-8")
+# dicionarioDados <- read.xlsx("data/DicionarioDados.xlsx",1, encoding = 'UTF-8')
 
 shinyServer(function(input, output) {
   
@@ -65,7 +67,19 @@ shinyServer(function(input, output) {
     colnames(df) <- c("Nome","Desempenho")
     DT::datatable(
       df,rownames = FALSE,options = list(paging = FALSE,searching = FALSE, 
-                                         info = FALSE, scrollY = '300px'),class = "compact"
+                                         info = FALSE, scrollY = '300px'),
+                                    class = "compact"
+    )
+  })
+  
+  #Retorna tabela de variaveis
+  output$tabelaVariaveis <- renderDataTable({
+    df <- data.frame(dicionarioDados[,c("Variável","Descrição.sobre.as.variáveis")])
+    colnames(df) <- c("Variável","Descrição")
+    DT::datatable(
+      df,rownames = FALSE, options = list(paging = FALSE, searching = FALSE,
+                                          info = FALSE, scrollY = '300px'),
+                                      class = "compact"
     )
   })
 
