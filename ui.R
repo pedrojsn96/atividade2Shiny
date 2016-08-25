@@ -20,26 +20,25 @@ dashboardPage(
   ),
   dashboardBody(
     fluidRow(
-      column(width=12,
-             valueBoxOutput("SatisfatorioBox", width = 4),
-             valueBoxOutput("InsatisfatorioBox",width = 4),
-             box(
-               title = "Variavéis",status = "primary",width = 4,solidHeader = TRUE ,collapsible = TRUE,
-               dataTableOutput("tabelaVariaveis")
-               
-             )),
-      column(width=12,
-             box(
-               title = "Representação Gráfica",status = "primary",width=8,solidHeader = TRUE ,collapsible = TRUE
-               
-             ),
-             box(
-               title = "Alunos",status = "primary",width = 4,solidHeader = TRUE ,collapsible = TRUE,
-               dataTableOutput("tabelaAluno")
-               
-               
-             ))
-      
+      column(
+        width=6,
+        valueBoxOutput("SatisfatorioBox", width = 6),
+        valueBoxOutput("InsatisfatorioBox",width = 6),
+         box(
+           width= 12, title = "Representação Gráfica",status = "primary",solidHeader = TRUE ,collapsible = TRUE
+             )
+        ),
+      column(
+        width = 6,
+        box(
+          width = 12, title = "Variavéis",status = "primary",solidHeader = TRUE ,collapsible = TRUE,
+          dataTableOutput("tabelaVariaveis")
+        ),
+        box(
+          width=12,title = "Alunos",status = "primary",solidHeader = TRUE ,collapsible = TRUE,
+          dataTableOutput("tabelaAluno")
+        )
+      )
     )
   )
 )
