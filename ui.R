@@ -4,6 +4,7 @@ library(shinydashboard)
 library(rsconnect)
 library(plotly)
 library(dplyr)
+library(DT)
 
 dashboardPage(
   dashboardHeader(title = "Atv Complementar"),
@@ -31,7 +32,9 @@ dashboardPage(
                
              ),
              box(
-               title = "Alunos",status = "primary",width = 4,solidHeader = TRUE ,collapsible = TRUE
+               title = "Alunos",status = "primary",width = 4,solidHeader = TRUE ,collapsible = TRUE,
+               dataTableOutput("tabelaAluno")
+               
                
              ))
       

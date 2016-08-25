@@ -4,6 +4,7 @@ library(shinydashboard)
 library(rsconnect)
 library(plotly)
 library(dplyr)
+library(DT)
 
 #Observação:
 #Esta usando X.U.FEFF.Curso, pois fiz uma leitura com enconding = "UTF-8"
@@ -57,5 +58,15 @@ shinyServer(function(input, output) {
       )
   })
   
+  #Retorna tabela de alunos
+  output$tabelaAluno <- renderDataTable({
+    #transformar em um dataframe nome do aluno, freq e desempenho binario
+    df <- data.frame(baseFiltrada()[,c("Nome.do.Aluno","DESEMPENHO_BINARIO")])
+    colnames(df) <- c("Nome","Desempenho")
+    DT::datatable(
+      df,rownames = FALSE,options = list(paging = FALSE,searching = FALSE, 
+                                         info = FALSE, scrollY = TRUE),class = "compact"
+    )
+  })
 
 })
