@@ -8,9 +8,11 @@ library(DT)
 library(xlsx)
 
 #Observação:
-#Esta usando X.U.FEFF.Curso, pois fiz uma leitura com enconding = "UTF-8"
-# dados<- read.csv2(file = "data/baseGeral.csv", enconding = "UTF-8")
+#Esta usando X.U.FEFF.Curso, pois fiz uma leitura com encoding = "UTF-8"
+# dados<- read.csv2(file = "data/baseGeral.csv", encoding = "UTF-8")
 # dicionarioDados <- read.xlsx("data/DicionarioDados.xlsx",1, encoding = 'UTF-8')
+dados<- read.csv2(file = "data/baseGeral.csv", encoding = "UTF-8")
+dicionarioDados <- read.xlsx("data/DicionarioDados.xlsx",1, encoding = 'UTF-8')
 
 shinyServer(function(input, output) {
   
