@@ -14,6 +14,9 @@ library(xlsx)
 dados<- read.csv2(file = "data/baseGeral.csv", encoding = "UTF-8")
 dicionarioDados <- read.xlsx("data/DicionarioDados.xlsx",1, encoding = 'UTF-8')
 
+#Lista de Variveis
+listaVariaveis <- data.frame(dicionarioDados[,c("Variável","Descrição.sobre.as.variáveis")])
+
 shinyServer(function(input, output) {
   
   #Select para Curso
@@ -86,13 +89,19 @@ shinyServer(function(input, output) {
   
   #Retorna tabela de variaveis
   output$tabelaVariaveis <- renderDataTable({
-    df <- data.frame(dicionarioDados[,c("Variável","Descrição.sobre.as.variáveis")])
-    colnames(df) <- c("Variável","Descrição")
+    colnames(listaVariaveis) <- c("Variável","Descrição")
     DT::datatable(
-      df,rownames = FALSE, options = list(paging = FALSE, searching = FALSE,
+      listaVariaveis,rownames = FALSE, options = list(paging = FALSE, searching = FALSE,
                                           info = FALSE, scrollY = '300px'),
-                                      class = "compact"
+                                      class = "compact",selection = 'single'
     )
+  })
+  
+  #Retorna o Grafico
+  output$showGrafico <- plotly::renderPlotly({
+    varSelected <- listaVariaveis[input$tabelaVariaveis_rows_selected,]
+    plot_ly(baseFiltrada(), x = ID.do.Aluno, y = baseFiltrada()$varSelected[1], text = paste("Nome: ", Nome.do.Aluno,"Situação:", DESEMPENHO_BINARIO),
+            mode = "markers", color = baseFiltrada()$varSelected[1], size = baseFiltrada()$varSelected[1])
   })
 
 })

@@ -25,7 +25,8 @@ dashboardPage(
         valueBoxOutput("SatisfatorioBox", width = 6),
         valueBoxOutput("InsatisfatorioBox",width = 6),
          box(
-           width= 12, title = "Representação Gráfica",status = "primary",solidHeader = TRUE ,collapsible = TRUE
+           width= 12, title = "Representação Gráfica",status = "primary",solidHeader = TRUE ,collapsible = TRUE,
+            plotly::plotlyOutput('showGrafico')
              )
         ),
       column(
