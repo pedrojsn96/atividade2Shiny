@@ -24,7 +24,9 @@ shinyServer(function(input, output) {
   #Select para o periodo a depender do curso escolhido
   output$seletorPeriodo <- renderUI({
     periodos <- filter(dados, X.U.FEFF.Curso == input$curso)
-    selectInput("periodo", "Escolha o Periodo:", sort(as.character(unique(periodos$Período))))
+    showPeriodo <- sort(as.character(unique(periodos$Período)))
+    names(showPeriodo)<- paste(showPeriodo,"º Periodo")
+    selectInput("periodo", "Escolha o Periodo:", showPeriodo)
   })
   #Select da disciplina a depender do curso e do periodo escolhido
   output$seletorDisciplina <- renderUI({
@@ -43,23 +45,31 @@ shinyServer(function(input, output) {
   })
   #Retorna a % Satisfatoria
   variavelSatisfatoria <- reactive({
-    round((variavelClasse()[1]/count(baseFiltrada()))*100,2)
+    if(is.na(variavelClasse()[1])){
+      0
+    }else{
+      round((variavelClasse()[1]/count(baseFiltrada()))*100,2) 
+    }
   })
   #Retorna a % Insatisfatoria
   variavelInsatisfatoria <- reactive({
-    round((variavelClasse()[2]/count(baseFiltrada()))*100,2)
+    if(is.na(variavelClasse()[2])){
+      0
+    }else{
+      round((variavelClasse()[2]/count(baseFiltrada()))*100,2) 
+    }
   })
   output$SatisfatorioBox <- renderValueBox({
-      valueBox(
-        paste0(variavelSatisfatoria(),"%"),"Satisfatório", icon = icon("thumbs-o-up "),
-        color = "green", width = 4
-      )
+    valueBox(
+      paste0(variavelSatisfatoria(),"%"),"Satisfatório", icon = icon("thumbs-o-up "),
+      color = "green", width = 4
+    )
   })
   output$InsatisfatorioBox <- renderValueBox({
-      valueBox(
-        paste0(variavelInsatisfatoria(),"%"),"Insatisfatório", icon = icon("thumbs-o-down "),
-        color = "red", width = 4
-      )
+    valueBox(
+      paste0(variavelInsatisfatoria(),"%"),"Insatisfatório", icon = icon("thumbs-o-down "),
+      color = "red", width = 4
+    )
   })
   
   #Retorna tabela de alunos
