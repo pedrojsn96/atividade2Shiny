@@ -18,6 +18,7 @@ dicionarioDados <- read.xlsx("data/DicionarioDados.xlsx",1, encoding = 'UTF-8')
 
 #teste <- merge(dicionarioDados, dicionarioDados1)
 
+s
 #Lista de Variveis
 listaVariaveis <- data.frame(dicionarioDados[,c("Variável","Descrição.sobre.as.variáveis")])
 
