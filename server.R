@@ -9,16 +9,14 @@ library(xlsx)
 
 #Observação:
 #Esta usando X.U.FEFF.Curso, pois fiz uma leitura com encoding = "UTF-8"
-# dados<- read.csv2(file = "data/baseGeral.csv", encoding = "UTF-8")
-# dicionarioDados <- read.xlsx("data/DicionarioDados.xlsx",1, encoding = 'UTF-8')
-dados<- read.csv2(file = "data/baseGeral.csv", encoding = "UTF-8")
-dicionarioDados <- read.xlsx("data/DicionarioDados.xlsx",1, encoding = 'UTF-8')
-#dicionarioDados1 <- read.xlsx("data/DicionarioDados.xlsx",1, encoding = 'UTF-8')
+
+#dados<- read.csv2(file = "data/baseGeral.csv", encoding = "UTF-8")
+#dicionarioDados <- read.xlsx("data/DicionarioDados.xlsx",1, encoding = 'UTF-8')
+#dicionarioDados1 <- read.xlsx("data/DicionarioDados.xlsx",2, encoding = 'UTF-8')
 #para juntar as abas é necessario fazer um merge 
 
-#teste <- merge(dicionarioDados, dicionarioDados1)
+#teste <- merge( dicionarioDados, dicionarioDados1, all = T, sort= T)
 
-s
 #Lista de Variveis
 listaVariaveis <- data.frame(dicionarioDados[,c("Variável","Descrição.sobre.as.variáveis")])
 
