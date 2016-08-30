@@ -13,6 +13,10 @@ library(xlsx)
 # dicionarioDados <- read.xlsx("data/DicionarioDados.xlsx",1, encoding = 'UTF-8')
 dados<- read.csv2(file = "data/baseGeral.csv", encoding = "UTF-8")
 dicionarioDados <- read.xlsx("data/DicionarioDados.xlsx",1, encoding = 'UTF-8')
+#dicionarioDados1 <- read.xlsx("data/DicionarioDados.xlsx",1, encoding = 'UTF-8')
+#para juntar as abas é necessario fazer um merge 
+
+#teste <- merge(dicionarioDados, dicionarioDados1)
 
 #Lista de Variveis
 listaVariaveis <- data.frame(dicionarioDados[,c("Variável","Descrição.sobre.as.variáveis")])
