@@ -11,11 +11,15 @@ library(xlsx)
 #Esta usando X.U.FEFF.Curso, pois fiz uma leitura com encoding = "UTF-8"
 # dados<- read.csv2(file = "data/baseGeral.csv", encoding = "UTF-8")
 # dicionarioDados <- read.xlsx("data/DicionarioDados.xlsx",1, encoding = 'UTF-8')
+
 dados<- read.csv2(file = "data/baseGeral.csv", encoding = "UTF-8")
 dicionarioDados <- read.xlsx("data/DicionarioDados.xlsx",1, encoding = 'UTF-8')
+dicionarioDados1 <- read.xlsx("data/DicionarioDados.xlsx",2, encoding = 'UTF-8')
+#Uniao das duas abas do arquivo excel
+dicionario <- merge(dicionarioDados, dicionarioDados1, all = T,sort = T)
 
 #Lista de Variveis
-listaVariaveis <- data.frame(dicionarioDados[,c("Variável","Descrição.sobre.as.variáveis")])
+listaVariaveis <- data.frame(dicionario[,c("Variável","Descrição.sobre.as.variáveis")])
 
 shinyServer(function(input, output) {
   
@@ -102,7 +106,7 @@ shinyServer(function(input, output) {
     variaveis <- as.character(listaVariaveis$Variável)
     varSelected <- variaveis[input$tabelaVariaveis_rows_selected]
     plot_ly(baseFiltrada(), x = ID.do.Aluno, y = baseFiltrada()[,varSelected], text = paste("Nome: ", Nome.do.Aluno,"Situação:", DESEMPENHO_BINARIO),
-            mode = "markers", color = baseFiltrada()[,varSelected], size = baseFiltrada()[,varSelected])
-  })
+            mode = "markers", color = baseFiltrada()[,varSelected])
+      })
 
 })
