@@ -99,9 +99,10 @@ shinyServer(function(input, output) {
   
   #Retorna o Grafico
   output$showGrafico <- plotly::renderPlotly({
-    varSelected <- listaVariaveis[input$tabelaVariaveis_rows_selected,]
-    plot_ly(baseFiltrada(), x = ID.do.Aluno, y = baseFiltrada()$varSelected[1], text = paste("Nome: ", Nome.do.Aluno,"Situação:", DESEMPENHO_BINARIO),
-            mode = "markers", color = baseFiltrada()$varSelected[1], size = baseFiltrada()$varSelected[1])
+    variaveis <- as.character(listaVariaveis$Variável)
+    varSelected <- variaveis[input$tabelaVariaveis_rows_selected]
+    plot_ly(baseFiltrada(), x = ID.do.Aluno, y = baseFiltrada()[,varSelected], text = paste("Nome: ", Nome.do.Aluno,"Situação:", DESEMPENHO_BINARIO),
+            mode = "markers", color = baseFiltrada()[,varSelected], size = baseFiltrada()[,varSelected])
   })
 
 })
