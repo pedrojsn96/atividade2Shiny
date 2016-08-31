@@ -82,8 +82,12 @@ shinyServer(function(input, output) {
   #Retorna tabela de alunos
   output$tabelaAluno <- renderDataTable({
     #transformar em um dataframe nome do aluno, freq e desempenho binario
-    df <- data.frame(baseFiltrada()[,c("Nome.do.Aluno","DESEMPENHO_BINARIO")])
-    colnames(df) <- c("Nome","Desempenho")
+    variaveis <- as.character(listaVariaveis$Variável)
+    varSelected <- variaveis[input$tabelaVariaveis_rows_selected]
+    df <- data.frame(baseFiltrada()[,c("Nome.do.Aluno",varSelected,"DESEMPENHO_BINARIO")])
+    df$DESEMPENHO_BINARIO[df$DESEMPENHO_BINARIO == 0] <- "Satisfatório"
+    df$DESEMPENHO_BINARIO[df$DESEMPENHO_BINARIO == 1] <- "Insatisfatório"
+    colnames(df) <- c("Nome","Freq","Situação")
     DT::datatable(
       df,rownames = FALSE,options = list(paging = FALSE,searching = FALSE, 
                                          info = FALSE, scrollY = '300px'),
