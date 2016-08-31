@@ -1,11 +1,9 @@
-library(ggplot2)
 library(shiny)
 library(shinydashboard)
-library(rsconnect)
-library(plotly)
 library(dplyr)
 library(DT)
 library(xlsx)
+library(plotly)
 
 dashboardPage(
   dashboardHeader(title = "Atv Complementar"),

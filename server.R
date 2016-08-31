@@ -1,11 +1,9 @@
-library(ggplot2)
 library(shiny)
 library(shinydashboard)
-library(rsconnect)
-library(plotly)
 library(dplyr)
 library(DT)
 library(xlsx)
+library(plotly)
 
 #Observação:
 #Esta usando X.U.FEFF.Curso, pois fiz uma leitura com encoding = "UTF-8"
@@ -25,26 +23,26 @@ shinyServer(function(input, output) {
   
   #Select para Curso
   output$seletorCurso <- renderUI({
-    cursos <- as.character(unique(dados$X.U.FEFF.Curso))
+    cursos <- as.character(unique(dados$Curso))
     selectInput("curso", "Escolha o Curso:", choices = (sort(cursos)))
   })
   #Select para o periodo a depender do curso escolhido
   output$seletorPeriodo <- renderUI({
-    periodos <- filter(dados, X.U.FEFF.Curso == input$curso)
+    periodos <- filter(dados, Curso == input$curso)
     showPeriodo <- sort(as.character(unique(periodos$Período)))
     names(showPeriodo)<- paste(showPeriodo,"º Periodo")
     selectInput("periodo", "Escolha o Periodo:", showPeriodo)
   })
   #Select da disciplina a depender do curso e do periodo escolhido
   output$seletorDisciplina <- renderUI({
-    disciplinas <- filter(dados,X.U.FEFF.Curso == input$curso, Período == input$periodo)
+    disciplinas <- filter(dados,Curso == input$curso, Período == input$periodo)
     selectInput("disciplina","Escolha a Disciplina:",as.character(unique(disciplinas$Nome.da.Disciplina)))
   })
   
   ## InfoBoxes
   ##Base de acordo com os parametros escolhidos
   baseFiltrada <- reactive({
-    filter(dados,X.U.FEFF.Curso == input$curso, Período == input$periodo, Nome.da.Disciplina == input$disciplina)
+    filter(dados,Curso == input$curso, Período == input$periodo, Nome.da.Disciplina == input$disciplina)
   }) 
   #Cria um tabela agrupando DESEMPENHO_BINARIO em 0 e 1
   variavelClasse <- reactive({
