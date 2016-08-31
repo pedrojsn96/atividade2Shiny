@@ -80,11 +80,7 @@ shinyServer(function(input, output) {
   })
   #Linha selecionada
   rowSelect <- reactive({
-    if(is.null(input$tabelaVariaveis_rows_selected)){
-      1
-    }else{
-      input$tabelaVariaveis_rows_selected
-    }
+    input$tabelaVariaveis_rows_selected
   })
   
   #Retorna tabela de alunos
@@ -108,8 +104,8 @@ shinyServer(function(input, output) {
     colnames(listaVariaveis) <- c("Variável","Descrição")
     DT::datatable(
       listaVariaveis,rownames = FALSE, options = list(paging = FALSE, searching = FALSE,
-                                          info = FALSE, scrollY = '300px'),
-                                      class = "compact",selection = 'single'
+                                          info = FALSE, scrollY = '300px'),class = "compact",
+                      selection = list(target = 'row',mode="single",selected=c(1))
     )
   })
   
