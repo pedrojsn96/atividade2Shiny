@@ -118,7 +118,7 @@ shinyServer(function(input, output) {
     variaveis <- as.character(listaVariaveis$Variável)
     varSelected <- variaveis[rowSelect()]
     freq <- baseFiltrada()[,varSelected]
-    p <- plot_ly(baseFiltrada(), x = ID.do.Aluno, y = freq, text = paste("Nome: ", Nome.do.Aluno,"Situação:", DESEMPENHO_BINARIO)
+    p <- plot_ly(baseFiltrada(), x = ID.do.Aluno, y = freq, text = paste("Nome:", Nome.do.Aluno,"Freq:",freq,"Situação:", DESEMPENHO_BINARIO)
                  ,mode = "markers", color = freq ,name = varSelected)
     ##bla
     p <-layout(title = varSelected,xaxis=list(title=""),yaxis=list(title=""))
