@@ -118,7 +118,10 @@ shinyServer(function(input, output) {
     variaveis <- as.character(listaVariaveis$Variável)
     varSelected <- variaveis[rowSelect()]
     freq <- baseFiltrada()[,varSelected]
-    p <- plot_ly(baseFiltrada(), x = ID.do.Aluno, y = freq, text = paste("Nome:", Nome.do.Aluno,"Freq:",freq,"Situação:", DESEMPENHO_BINARIO)
+    df <- baseFiltrada()
+    df$DESEMPENHO_BINARIO[df$DESEMPENHO_BINARIO == 0] <- "Satisfatório"
+    df$DESEMPENHO_BINARIO[df$DESEMPENHO_BINARIO == 1] <- "Insatisfatório"
+    p <- plot_ly(df, x = ID.do.Aluno, y = freq, text = paste(paste("Nome:", Nome.do.Aluno),paste("Freq:",freq),paste("Situação:", DESEMPENHO_BINARIO), sep = "<br>")
                  ,mode = "markers", color = freq ,name = varSelected)
     ##bla
     p <-layout(title = varSelected,xaxis=list(title=""),yaxis=list(title=""))
