@@ -78,12 +78,20 @@ shinyServer(function(input, output) {
       color = "red", width = 4
     )
   })
+  #Linha selecionada
+  rowSelect <- reactive({
+    if(is.null(input$tabelaVariaveis_rows_selected)){
+      1
+    }else{
+      input$tabelaVariaveis_rows_selected
+    }
+  })
   
   #Retorna tabela de alunos
   output$tabelaAluno <- renderDataTable({
     #transformar em um dataframe nome do aluno, freq e desempenho binario
     variaveis <- as.character(listaVariaveis$Variável)
-    varSelected <- variaveis[input$tabelaVariaveis_rows_selected]
+    varSelected <- variaveis[rowSelect()]
     df <- data.frame(baseFiltrada()[,c("Nome.do.Aluno",varSelected,"DESEMPENHO_BINARIO")])
     df$DESEMPENHO_BINARIO[df$DESEMPENHO_BINARIO == 0] <- "Satisfatório"
     df$DESEMPENHO_BINARIO[df$DESEMPENHO_BINARIO == 1] <- "Insatisfatório"
@@ -108,9 +116,14 @@ shinyServer(function(input, output) {
   #Retorna o Grafico
   output$showGrafico <- plotly::renderPlotly({
     variaveis <- as.character(listaVariaveis$Variável)
-    varSelected <- variaveis[input$tabelaVariaveis_rows_selected]
-    plot_ly(baseFiltrada(), x = ID.do.Aluno, y = baseFiltrada()[,varSelected], text = paste("Nome: ", Nome.do.Aluno,"Situação:", DESEMPENHO_BINARIO),
-            mode = "markers", color = baseFiltrada()[,varSelected])
+    varSelected <- variaveis[rowSelect()]
+    freq <- baseFiltrada()[,varSelected]
+    p <- plot_ly(baseFiltrada(), x = ID.do.Aluno, y = freq, text = paste("Nome: ", Nome.do.Aluno,"Situação:", DESEMPENHO_BINARIO)
+                 ,mode = "markers", color = freq ,name = varSelected)
+    ##bla
+    p <-layout(title = varSelected,xaxis=list(title=""),yaxis=list(title=""))
+    p
+    
       })
 
 })
