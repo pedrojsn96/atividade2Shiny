@@ -26,19 +26,43 @@ shinyServer(function(input, output) {
   #Select para Curso
   output$seletorCurso <- renderUI({
     cursos <- as.character(unique(dados$X.U.FEFF.Curso))
-    selectInput("curso", "Escolha o Curso:", choices = (sort(cursos)))
+    #selectInput("curso", "Escolha o Curso:", choices = (sort(cursos)))
+    
+    selectizeInput(
+      'curso', 'Escolha o Curso:', choices = (sort(cursos)),
+      options = list(
+        placeholder = 'Cursos',
+        onInitialize = I('function() { this.setValue(""); }')
+      )
+    )
   })
   #Select para o periodo a depender do curso escolhido
   output$seletorPeriodo <- renderUI({
     periodos <- filter(dados, X.U.FEFF.Curso == input$curso)
     showPeriodo <- sort(as.character(unique(periodos$Período)))
     names(showPeriodo)<- paste(showPeriodo,"º Periodo")
-    selectInput("periodo", "Escolha o Periodo:", showPeriodo)
+    #selectInput("periodo", "Escolha o Periodo:", showPeriodo)
+    
+    selectizeInput(
+      'periodo', 'Escolha o Periodo:', showPeriodo,
+      options = list(
+        placeholder = 'Periodo',
+        onInitialize = I('function() { this.setValue(""); }')
+      )
+    )
   })
   #Select da disciplina a depender do curso e do periodo escolhido
   output$seletorDisciplina <- renderUI({
     disciplinas <- filter(dados,X.U.FEFF.Curso == input$curso, Período == input$periodo)
-    selectInput("disciplina","Escolha a Disciplina:",as.character(unique(disciplinas$Nome.da.Disciplina)))
+    #selectInput("disciplina","Escolha a Disciplina:",as.character(unique(disciplinas$Nome.da.Disciplina)))
+    
+    selectizeInput(
+      "disciplina","Escolha a Disciplina:",as.character(unique(disciplinas$Nome.da.Disciplina)),
+      options = list(
+        placeholder = 'Disciplina',
+        onInitialize = I('function() { this.setValue(""); }')
+      )
+    )
   })
   
   ## InfoBoxes
